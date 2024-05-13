@@ -1,0 +1,46 @@
+﻿<Window
+    x:Class="XamlBehaviorsTest.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:XamlBehaviorsTest"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    Title="MainWindow"
+    Width="525"
+    Height="350"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
+    mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction
+                Command="{Binding MakeReadOnlyCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <StackPanel>
+            <TextBox
+                Width="200"
+                Height="20"
+                Margin="10"
+                Text="200" />
+            <!--
+                Remove the CommandParameter attribute of the button below
+                to break the InvokeCommandAction.CommandParameter.
+                The CommandParameter attribute is given again below
+                for easy copy-paste restoring after deletion.
+            -->
+            <!--
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}"
+            -->
+            <Button
+                Width="200"
+                Height="20"
+                Command="{Binding MakeReadOnlyCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type StackPanel}}}" />
+        </StackPanel>
+    </Grid>
+</Window>
